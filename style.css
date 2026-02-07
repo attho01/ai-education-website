@@ -1,0 +1,851 @@
+/* ==========================================
+   전역 스타일 및 리셋
+   ========================================== */
+
+/* 모든 요소에 박스 사이징 적용 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 루트 CSS 변수 정의 (색상, 폰트 등) */
+:root {
+    /* 주요 색상 */
+    --primary-color: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary-color: #8b5cf6;
+    --accent-color: #ec4899;
+
+    /* 배경 및 텍스트 색상 */
+    --bg-color: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-dark: #0f172a;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-light: #94a3b8;
+
+    /* 그라데이션 */
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+
+    /* 그림자 */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+    /* 간격 */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* 폰트 크기 */
+    --font-sm: 0.875rem;
+    --font-base: 1rem;
+    --font-lg: 1.125rem;
+    --font-xl: 1.25rem;
+    --font-2xl: 1.5rem;
+    --font-3xl: 2rem;
+    --font-4xl: 2.5rem;
+}
+
+/* 기본 바디 스타일 */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+    color: var(--text-primary);
+    background-color: var(--bg-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* 스크롤 부드럽게 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 컨테이너 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+/* ==========================================
+   네비게이션 바
+   ========================================== */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+/* 스크롤 시 네비게이션 스타일 */
+.navbar.scrolled {
+    box-shadow: var(--shadow-md);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+}
+
+/* 로고 스타일 */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-xl);
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.logo-icon {
+    font-size: var(--font-2xl);
+}
+
+/* 네비게이션 메뉴 */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-lg);
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-color);
+}
+
+/* 네비게이션 링크 밑줄 효과 */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* 모바일 메뉴 토글 버튼 */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: var(--font-2xl);
+    cursor: pointer;
+    color: var(--text-primary);
+}
+
+/* ==========================================
+   히어로 섹션
+   ========================================== */
+
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+    overflow: hidden;
+}
+
+/* 히어로 배경 애니메이션 */
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-primary);
+    opacity: 0.05;
+    z-index: -1;
+}
+
+.hero-background::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: var(--gradient-secondary);
+    top: -250px;
+    right: -250px;
+    opacity: 0.3;
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-background::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    bottom: -150px;
+    left: -150px;
+    opacity: 0.3;
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+/* 부유 애니메이션 */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* 히어로 컨텐츠 */
+.hero-content {
+    text-align: center;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: var(--font-4xl);
+    font-weight: bold;
+    margin-bottom: var(--spacing-md);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: var(--font-lg);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+    line-height: 1.8;
+}
+
+/* 히어로 버튼들 */
+.hero-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+/* 통계 섹션 */
+.hero-stats {
+    display: flex;
+    gap: var(--spacing-xl);
+    justify-content: center;
+    margin-top: var(--spacing-xl);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: var(--font-3xl);
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.stat-label {
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    margin-top: var(--spacing-xs);
+}
+
+/* ==========================================
+   버튼 스타일
+   ========================================== */
+
+.btn {
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-size: var(--font-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: var(--font-sm);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* ==========================================
+   섹션 공통 스타일
+   ========================================== */
+
+section {
+    padding: var(--spacing-xl) 0;
+}
+
+.section-title {
+    font-size: var(--font-3xl);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+}
+
+.section-subtitle {
+    font-size: var(--font-lg);
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+/* ==========================================
+   강의 섹션
+   ========================================== */
+
+.courses {
+    background: var(--bg-secondary);
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* 강의 카드 */
+.course-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* 강의 이미지 */
+.course-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.course-img-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+}
+
+/* 각 강의별 색상 */
+.course-img-placeholder.chatgpt {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.course-img-placeholder.midjourney {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.course-img-placeholder.stable-diffusion {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.course-img-placeholder.ai-integration {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+/* 강의 배지 */
+.course-badge {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background: var(--accent-color);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: var(--font-sm);
+    font-weight: bold;
+}
+
+/* 강의 컨텐츠 */
+.course-content {
+    padding: var(--spacing-md);
+}
+
+.course-title {
+    font-size: var(--font-xl);
+    font-weight: bold;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+.course-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+}
+
+/* 강의 메타 정보 */
+.course-meta {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+}
+
+/* 강의 푸터 */
+.course-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid #e2e8f0;
+}
+
+.course-price {
+    font-size: var(--font-xl);
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* ==========================================
+   커리큘럼 섹션
+   ========================================== */
+
+.curriculum-timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* 타임라인 중앙선 */
+.curriculum-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: var(--primary-color);
+    opacity: 0.3;
+}
+
+/* 타임라인 아이템 */
+.timeline-item {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+}
+
+/* 타임라인 마커 */
+.timeline-marker {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: var(--font-lg);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    z-index: 1;
+}
+
+/* 타임라인 컨텐츠 */
+.timeline-content {
+    flex: 1;
+    background: white;
+    padding: var(--spacing-lg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+}
+
+.timeline-content h3 {
+    font-size: var(--font-xl);
+    margin-bottom: var(--spacing-md);
+    color: var(--primary-color);
+}
+
+.timeline-content ul {
+    list-style: none;
+}
+
+.timeline-content li {
+    padding: var(--spacing-xs) 0;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: var(--spacing-md);
+}
+
+.timeline-content li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* ==========================================
+   강사진 섹션
+   ========================================== */
+
+.instructors {
+    background: var(--bg-secondary);
+}
+
+.instructors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* 강사 카드 */
+.instructor-card {
+    background: white;
+    padding: var(--spacing-xl);
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+}
+
+.instructor-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* 강사 아바타 */
+.instructor-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    margin: 0 auto var(--spacing-md);
+}
+
+.instructor-name {
+    font-size: var(--font-xl);
+    font-weight: bold;
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.instructor-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.instructor-bio {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+}
+
+/* 강사 소셜 링크 */
+.instructor-social {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+}
+
+.instructor-social a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: var(--font-sm);
+    padding: 4px 12px;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.instructor-social a:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* ==========================================
+   문의 섹션
+   ========================================== */
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-xl);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* 연락 정보 */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+.info-item {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+}
+
+.info-icon {
+    font-size: var(--font-2xl);
+    flex-shrink: 0;
+}
+
+.info-content h4 {
+    font-size: var(--font-lg);
+    margin-bottom: var(--spacing-xs);
+    color: var(--text-primary);
+}
+
+.info-content p {
+    color: var(--text-secondary);
+}
+
+/* 문의 폼 */
+.contact-form {
+    background: white;
+    padding: var(--spacing-xl);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: var(--font-base);
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-group textarea {
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* ==========================================
+   푸터
+   ========================================== */
+
+.footer {
+    background: var(--bg-dark);
+    color: white;
+    padding: var(--spacing-xl) 0 var(--spacing-md);
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.footer-section h3,
+.footer-section h4 {
+    margin-bottom: var(--spacing-md);
+}
+
+.footer-section p {
+    color: var(--text-light);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: var(--spacing-xs);
+}
+
+.footer-section a {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: white;
+}
+
+/* 소셜 링크 */
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.social-link {
+    display: inline-block;
+}
+
+/* 푸터 하단 */
+.footer-bottom {
+    text-align: center;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+/* ==========================================
+   반응형 디자인
+   ========================================== */
+
+/* 태블릿 */
+@media (max-width: 768px) {
+    /* 네비게이션 */
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: var(--spacing-md);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    /* 히어로 */
+    .hero-title {
+        font-size: var(--font-3xl);
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    /* 타임라인 */
+    .curriculum-timeline::before {
+        left: 40px;
+    }
+
+    .timeline-item {
+        flex-direction: column;
+        padding-left: 100px;
+    }
+
+    .timeline-marker {
+        position: absolute;
+        left: 0;
+    }
+
+    /* 문의 섹션 */
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 모바일 */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: var(--font-2xl);
+    }
+
+    .section-title {
+        font-size: var(--font-2xl);
+    }
+
+    .courses-grid,
+    .instructors-grid {
+        grid-template-columns: 1fr;
+    }
+}
