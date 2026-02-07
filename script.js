@@ -15,8 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     initScrollEffects();
     initFormValidation();
-    initSmoothScroll();
     initAnimations();
+    initStatsAnimation();
+    initCourseButtons();
+    initHeroButtons();
 });
 
 // ==========================================
@@ -112,37 +114,6 @@ function updateActiveSection() {
 }
 
 // ==========================================
-// 부드러운 스크롤
-// ==========================================
-
-// 부드러운 스크롤 초기화
-function initSmoothScroll() {
-    // 모든 앵커 링크에 부드러운 스크롤 적용
-    const links = document.querySelectorAll('a[href^="#"]');
-
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-
-            // #만 있는 링크는 무시
-            if (href === '#') {
-                e.preventDefault();
-                return;
-            }
-
-            const target = document.querySelector(href);
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
-
-// ==========================================
 // 폼 검증
 // ==========================================
 
@@ -209,14 +180,36 @@ function validateForm(data) {
     return true;
 }
 
+// 토스트 알림 표시 함수
+// type: 'success', 'error', 'info' 중 하나
+function showToast(message, type = 'info') {
+    const container = document.getElementById('toastContainer');
+
+    // 토스트 요소 생성
+    const toast = document.createElement('div');
+    toast.className = 'toast ' + type;
+    toast.textContent = message;
+    container.appendChild(toast);
+
+    // 약간의 딜레이 후 보이기 (CSS 애니메이션 트리거)
+    setTimeout(() => toast.classList.add('show'), 10);
+
+    // 3초 후 자동으로 사라짐
+    setTimeout(() => {
+        toast.classList.remove('show');
+        // 애니메이션 완료 후 DOM에서 제거
+        setTimeout(() => toast.remove(), 400);
+    }, 3000);
+}
+
 // 성공 메시지 표시 함수
 function showSuccessMessage() {
-    alert('문의가 성공적으로 접수되었습니다!\n빠른 시일 내에 연락드리겠습니다.');
+    showToast('문의가 성공적으로 접수되었습니다! 빠른 시일 내에 연락드리겠습니다.', 'success');
 }
 
 // 에러 메시지 표시 함수
 function showErrorMessage(message) {
-    alert(message);
+    showToast(message, 'error');
 }
 
 // ==========================================
@@ -267,8 +260,8 @@ function initAnimations() {
 // 강의 카드 인터랙션
 // ==========================================
 
-// 강의 카드 클릭 이벤트
-document.addEventListener('DOMContentLoaded', function() {
+// 강의 카드 클릭 이벤트 초기화 함수
+function initCourseButtons() {
     const courseButtons = document.querySelectorAll('.course-card .btn-small');
 
     courseButtons.forEach(button => {
@@ -277,38 +270,36 @@ document.addEventListener('DOMContentLoaded', function() {
             const courseTitle = courseCard.querySelector('.course-title').textContent;
 
             // 강의 상세 정보 표시 (실제로는 모달이나 새 페이지로 이동)
-            alert(`"${courseTitle}" 강의 상세 정보\n\n곧 자세한 내용을 확인하실 수 있습니다.`);
+            showToast(`"${courseTitle}" 강의 상세 페이지가 준비 중입니다.`, 'info');
         });
     });
-});
+}
 
 // ==========================================
 // 히어로 섹션 버튼 이벤트
 // ==========================================
 
-// 페이지 로드 시 히어로 버튼 이벤트 설정
-document.addEventListener('DOMContentLoaded', function() {
+// 히어로 버튼 이벤트 초기화 함수
+function initHeroButtons() {
     const primaryBtn = document.querySelector('.hero-buttons .btn-primary');
     const secondaryBtn = document.querySelector('.hero-buttons .btn-secondary');
 
-    // 수강 신청 버튼
+    // 수강 신청 버튼 → 문의 섹션으로 스크롤
     if (primaryBtn) {
         primaryBtn.addEventListener('click', function() {
-            // 문의 섹션으로 스크롤
             const contactSection = document.getElementById('contact');
             contactSection.scrollIntoView({ behavior: 'smooth' });
         });
     }
 
-    // 강의 둘러보기 버튼
+    // 강의 둘러보기 버튼 → 강의 섹션으로 스크롤
     if (secondaryBtn) {
         secondaryBtn.addEventListener('click', function() {
-            // 강의 섹션으로 스크롤
             const coursesSection = document.getElementById('courses');
             coursesSection.scrollIntoView({ behavior: 'smooth' });
         });
     }
-});
+}
 
 // ==========================================
 // 유틸리티 함수
@@ -389,7 +380,9 @@ function toggleDarkMode() {
 // ==========================================
 
 // 숫자 카운트업 애니메이션 함수
-function animateCounter(element, target, duration = 2000) {
+// suffix: 숫자 뒤에 붙는 접미사 (예: "+", "%")
+// prefix: 숫자 앞에 붙는 접두사 (예: "₩")
+function animateCounter(element, target, suffix, duration = 2000) {
     const start = 0;
     const increment = target / (duration / 16); // 60fps 기준
     let current = start;
@@ -398,10 +391,12 @@ function animateCounter(element, target, duration = 2000) {
         current += increment;
 
         if (current >= target) {
-            element.textContent = target;
+            // 애니메이션 종료 시 원래 포맷으로 표시 (예: "5,000+")
+            element.textContent = target.toLocaleString() + suffix;
             clearInterval(timer);
         } else {
-            element.textContent = Math.floor(current);
+            // 진행 중에는 천 단위 콤마와 접미사 포함 표시
+            element.textContent = Math.floor(current).toLocaleString() + suffix;
         }
     }, 16);
 }
@@ -419,11 +414,13 @@ function initStatsAnimation() {
                     // 각 통계 숫자에 애니메이션 적용
                     statNumbers.forEach(stat => {
                         const text = stat.textContent;
+                        // 숫자 부분과 접미사 분리 (예: "5,000+" → 5000, "+")
                         const number = parseInt(text.replace(/[^0-9]/g, ''));
+                        const suffix = text.replace(/[0-9,]/g, ''); // "+", "%" 등 추출
 
                         if (!isNaN(number)) {
-                            stat.textContent = '0';
-                            animateCounter(stat, number);
+                            stat.textContent = '0' + suffix;
+                            animateCounter(stat, number, suffix);
                         }
                     });
 
@@ -436,5 +433,4 @@ function initStatsAnimation() {
     }
 }
 
-// 페이지 로드 시 통계 애니메이션 초기화
-document.addEventListener('DOMContentLoaded', initStatsAnimation);
+// initStatsAnimation은 메인 DOMContentLoaded에서 호출됨
