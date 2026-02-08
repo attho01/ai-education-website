@@ -848,6 +848,348 @@ section {
 }
 
 /* ==========================================
+   직업 매칭 섹션
+   ========================================== */
+
+.job-matching {
+    background: var(--bg-secondary);
+}
+
+/* 유비 프로필 카드 */
+.profile-card {
+    background: white;
+    border-radius: 16px;
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-lg);
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+}
+
+.profile-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--gradient-primary);
+    border-radius: 18px;
+    z-index: -1;
+}
+
+/* 프로필 헤더 */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.profile-name {
+    font-size: var(--font-2xl);
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.profile-tagline {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* 프로필 상세 섹션 */
+.profile-section {
+    margin-bottom: var(--spacing-md);
+}
+
+.profile-section h4 {
+    font-size: var(--font-base);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 700;
+}
+
+/* 태그 공통 스타일 */
+.tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: var(--font-sm);
+    margin: 4px;
+    font-weight: 500;
+}
+
+/* 기술 태그 (숙련도별 색상) */
+.tag-high {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+.tag-mid {
+    background: #e0e7ff;
+    color: #4338ca;
+    border: 1px solid #a5b4fc;
+}
+
+.tag-low {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+}
+
+/* 관심 분야 태그 */
+.interest-tag {
+    background: #fce7f3;
+    color: #be185d;
+    border: 1px solid #f9a8d4;
+}
+
+/* 성향 태그 */
+.personality-tag {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+}
+
+/* 매칭 컨트롤 영역 */
+.matching-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.filter-group label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+}
+
+.filter-group select {
+    padding: 8px 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: var(--font-sm);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* 결과 영역 */
+.job-results {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.job-results-placeholder {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: var(--spacing-xl);
+    font-size: var(--font-lg);
+}
+
+/* 결과 요약 */
+.results-summary {
+    text-align: center;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    color: var(--text-secondary);
+    font-size: var(--font-lg);
+}
+
+/* 채용공고 카드 */
+.job-card {
+    background: white;
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--primary-color);
+}
+
+.job-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* 카드 헤더 */
+.job-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+/* 매칭 점수 배지 */
+.job-match-badge {
+    flex-shrink: 0;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.match-score {
+    font-size: var(--font-lg);
+    line-height: 1;
+}
+
+.match-label {
+    font-size: 0.7rem;
+    margin-top: 2px;
+}
+
+/* 매칭 등급별 색상 */
+.match-excellent {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.match-good {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.match-average {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.match-low {
+    background: linear-gradient(135deg, #94a3b8, #64748b);
+}
+
+/* 직업 제목 영역 */
+.job-title-area {
+    flex: 1;
+}
+
+.job-title {
+    font-size: var(--font-xl);
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.job-company {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: var(--font-sm);
+}
+
+/* 직업 설명 */
+.job-description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+}
+
+/* 메타 정보 */
+.job-meta-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.job-meta-item {
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+/* 기술 요구사항 */
+.job-skills {
+    margin-bottom: var(--spacing-md);
+}
+
+.job-skills h4 {
+    font-size: var(--font-sm);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 700;
+}
+
+.job-skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+/* 보유 기술 (일치) */
+.tag-match {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+/* 미보유 기술 */
+.tag-missing {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+/* 우대 기술 일치 */
+.tag-preferred-match {
+    background: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+/* 카드 푸터 */
+.job-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid #e2e8f0;
+}
+
+.job-deadline {
+    font-size: var(--font-sm);
+    color: var(--text-light);
+}
+
+/* ==========================================
    반응형 디자인
    ========================================== */
 
@@ -906,6 +1248,21 @@ section {
     /* 문의 섹션 */
     .contact-wrapper {
         grid-template-columns: 1fr;
+    }
+
+    /* 직업 매칭 섹션 */
+    .job-card-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .job-meta-info {
+        justify-content: center;
+    }
+
+    .matching-controls {
+        flex-direction: column;
     }
 }
 

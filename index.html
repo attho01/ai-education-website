@@ -21,6 +21,7 @@
                 <li><a href="#curriculum" class="nav-link">커리큘럼</a></li>
                 <li><a href="#instructors" class="nav-link">강사진</a></li>
                 <li><a href="#contact" class="nav-link">문의</a></li>
+                <li><a href="#job-matching" class="nav-link">직업 매칭</a></li>
             </ul>
             <button class="mobile-menu-toggle" aria-label="메뉴 열기/닫기">☰</button>
         </div>
@@ -318,6 +319,63 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-full">문의하기</button>
                 </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 직업 매칭 섹션 -->
+    <section id="job-matching" class="job-matching">
+        <div class="container">
+            <h2 class="section-title">AI 직업 매칭</h2>
+            <p class="section-subtitle">유비님의 프로필을 기반으로 적합한 채용공고를 찾아드립니다</p>
+
+            <!-- 유비 프로필 카드 -->
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-avatar">👩‍💻</div>
+                    <div class="profile-info">
+                        <h3 class="profile-name">유비</h3>
+                        <p class="profile-tagline">AI 크리에이터 지망생</p>
+                    </div>
+                </div>
+                <div class="profile-details">
+                    <div class="profile-section">
+                        <h4>보유 기술</h4>
+                        <div class="skill-tags" id="skillTags">
+                            <!-- JavaScript로 동적 생성 -->
+                        </div>
+                    </div>
+                    <div class="profile-section">
+                        <h4>관심 분야</h4>
+                        <div class="interest-tags" id="interestTags">
+                            <!-- JavaScript로 동적 생성 -->
+                        </div>
+                    </div>
+                    <div class="profile-section">
+                        <h4>성향</h4>
+                        <div class="personality-tags" id="personalityTags">
+                            <!-- JavaScript로 동적 생성 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 매칭 결과 영역 -->
+            <div class="matching-controls">
+                <button class="btn btn-primary" id="startMatchingBtn">채용공고 매칭 시작</button>
+                <div class="filter-group">
+                    <label for="sortBy">정렬 기준:</label>
+                    <select id="sortBy">
+                        <option value="match">적합도순</option>
+                        <option value="salary">연봉순</option>
+                        <option value="recent">최신순</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 매칭된 채용공고 목록 -->
+            <div class="job-results" id="jobResults">
+                <p class="job-results-placeholder">위 버튼을 클릭하면 유비님에게 적합한 채용공고를 찾아드립니다.</p>
             </div>
         </div>
     </section>
